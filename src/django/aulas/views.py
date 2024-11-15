@@ -55,3 +55,21 @@ def tercer_plantilla(request):
         'nombre': 'Pedro Gomez',
         'fecha_actual': date.today()
     })
+
+class Empleado(object):
+
+    def __init__(self, nombre, apellido):
+        self.nombre = nombre
+        self.apellido = apellido
+
+def cuarta_plantilla(request):
+
+    empleado = Empleado("Juan", "Gomez")
+
+    laborables = ['Lunes', 'Martes', 'Miécoles', 'Jueves']
+
+    return render(request, "cuarta_plantilla.html", {
+        'mi_empleado': empleado,
+        'fecha_actual': date.today(),
+        'dias_laborables': laborables
+    })
