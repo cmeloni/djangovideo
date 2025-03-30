@@ -4,12 +4,11 @@ from datetime import date
 from django.template import Template, Context
 from django.template.loader import get_template
 from django.shortcuts import render
-
+from .models import Musician, Album
 
 # Create your views here.
 def nuevoHello(request):
     return HttpResponse("Hola mundo!!!")
-
 
 def bye(request):
     return HttpResponse("Hasta luego!!!")
@@ -73,3 +72,20 @@ def cuarta_plantilla(request):
         'fecha_actual': date.today(),
         'dias_laborables': laborables
     })
+
+
+
+def crear_musico(request, nombre, apellido, instrumento):
+    per=Musician(first_name=nombre, last_name=apellido, instrument=instrumento)
+    per.save()
+    mensaje = "Se creó el músico %s %s con id %d"%( per.first_name, per.last_name, per.id)
+
+    return HttpResponse(mensaje)
+
+def crear_albun(request, nombre, estrellas, artista_id):
+    art=Musician.objects.get(id=artista_id)
+    albun=Album(name=nombre, release_date=date.today(), num_stars=estrellas, artist=art)
+    albun.save()
+    mensaje = "Se creó el Albun %s del Artista %s con id %d"%( albun.name, art.last_name, albun.id)
+
+    return HttpResponse(mensaje)
