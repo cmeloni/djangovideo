@@ -1,7 +1,7 @@
 
 services:
   backend:
-    image: videobackend:0.1
+    image: videobackend:0.4
     build:
       context: ./config/django-image
     volumes:
@@ -11,6 +11,9 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      DJANGO_SU_NAME: ${DJANGO_SU_NAME}
+      DJANGO_SU_EMAIL: ${DJANGO_SU_EMAIL}
+      DJANGO_SU_PASSWD: ${DJANGO_SU_PASSWD}
     ports:
       - 8000:8000
     networks:
