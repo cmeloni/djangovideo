@@ -4,6 +4,8 @@ from datetime import date
 from django.template import Template, Context
 from django.template.loader import get_template
 from django.shortcuts import render
+from rest_framework.decorators import permission_classes
+
 from .models import Musician, Album
 
 # Create your views here.
@@ -20,6 +22,7 @@ def edad(request, anios, futuro):
 
     return HttpResponse(mensaje)
 
+@permission_classes('rest_framework.permissions.IsAdminUser')
 def primer_plantilla(request):
     plantilla = """
     <html>

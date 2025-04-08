@@ -6,8 +6,25 @@ services:
       context: ./config/django-image
     volumes:
       - ./src/django:/usr/src/app:delegated
+    environment:
+      DB_HOST: ${DB_HOST}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - 8000:8000
+    networks:
+      red:
+  postgres:
+    image: postgres:16-bullseye
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ./data:/var/lib/postgresql/data:delegated
+    ports:
+      - ${DB_PORT}:5432
     networks:
       red:
 

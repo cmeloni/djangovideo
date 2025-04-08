@@ -3,3 +3,4 @@
 .code
 *.pyc
 *.sqlite3
+.env
