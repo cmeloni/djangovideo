@@ -1,5 +1,8 @@
 #from django.shortcuts import render
-from django.http import HttpResponse
+import json
+
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from datetime import date
 from django.template import Template, Context
 from django.template.loader import get_template
@@ -92,3 +95,25 @@ def crear_albun(request, nombre, estrellas, artista_id):
     mensaje = "Se creó el Albun %s del Artista %s con id %d"%( albun.name, art.last_name, albun.id)
 
     return HttpResponse(mensaje)
+
+@csrf_exempt
+def first_api(request):
+    if request.method == 'GET':
+        respuesta = {
+            'nombre': 'Juan',
+            'apellido': 'Perez',
+            'edad': 25
+        }
+        return JsonResponse(respuesta)
+    elif request.method == 'POST':
+        datos = json.loads(request.body)
+        nombre = datos['nombre']
+        apellido = datos['apellido']
+        edad = datos['edad']
+        respuesta = {
+            'nombre2': nombre,
+            'apellido2': apellido,
+            'edad2': edad
+        }
+        return JsonResponse(respuesta)
+    return None
