@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import nuevoHello, bye, edad, primer_plantilla, segunda_plantilla, tercer_plantilla, cuarta_plantilla, crear_musico, crear_albun, first_api
+from .views import nuevoHello, bye, edad, primer_plantilla, segunda_plantilla, tercer_plantilla, cuarta_plantilla, crear_musico, crear_albun, first_api, serial_v1
 
 urlpatterns = [
     path('hello', nuevoHello),
@@ -12,4 +12,5 @@ urlpatterns = [
     path('crearmusico/<nombre>/<apellido>/<instrumento>', crear_musico),
     path('crearalbun/<nombre>/<int:estrellas>/<int:artista_id>', crear_albun),
     path('api/first_api', first_api),
+    path('api/serialv1', serial_v1),
 ]

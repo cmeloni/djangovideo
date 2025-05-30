@@ -10,6 +10,8 @@ from django.shortcuts import render
 from rest_framework.decorators import permission_classes
 
 from .models import Musician, Album
+from .serializers import PersonaSerializer
+
 
 # Create your views here.
 def nuevoHello(request):
@@ -116,4 +118,15 @@ def first_api(request):
             'edad2': edad
         }
         return JsonResponse(respuesta)
+    return None
+
+@csrf_exempt
+def serial_v1(request):
+    if request.method == 'POST':
+        datos = json.loads(request.body)
+        serializador = PersonaSerializer(data=datos)
+        if serializador.is_valid():
+            return JsonResponse(serializador.validated_data, status=201)
+        else:
+            return JsonResponse(serializador.errors, status=400)
     return None
