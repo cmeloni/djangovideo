@@ -9,8 +9,8 @@ from django.template.loader import get_template
 from django.shortcuts import render
 from rest_framework.decorators import permission_classes
 
-from .models import Musician, Album
-from .serializers import PersonaSerializer
+from .models import Musician, Album, Person
+from .serializers import PersonaSerializer, PersonSerializer
 
 
 # Create your views here.
@@ -129,4 +129,48 @@ def serial_v1(request):
             return JsonResponse(serializador.validated_data, status=201)
         else:
             return JsonResponse(serializador.errors, status=400)
+    return None
+
+@csrf_exempt
+def person_list(request):
+
+    if request.method == 'GET':
+        personas = Person.objects.all()
+        serializer = PersonSerializer(personas, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    if request.method == 'POST':
+        datos = json.loads(request.body)
+        serializer = PersonSerializer(data=datos)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        else:
+            return JsonResponse(serializer.errors, status=400)
+
+    return None
+
+@csrf_exempt
+def person_detail(request, pk):
+
+    if request.method == 'GET':
+        persona = Person.objects.get(pk=pk)
+        serializer = PersonSerializer(persona)
+        return JsonResponse(serializer.data, safe=False)
+
+    if request.method == 'PUT':
+        datos = json.loads(request.body)
+        persona = Person.objects.get(pk=pk)
+        serializer = PersonSerializer(persona, data=datos)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        else:
+            return JsonResponse(serializer.errors, status=400)
+
+    if request.method == 'DELETE':
+        persona = Person.objects.get(pk=pk)
+        persona.delete()
+        return HttpResponse(status=204)
+
     return None

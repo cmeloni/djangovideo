@@ -1,5 +1,5 @@
 from rest_framework import serializers
-
+from .models import Person
 
 class PersonaSerializer(serializers.Serializer):
     nombre = serializers.CharField(max_length=100)
@@ -23,3 +23,10 @@ class PersonaSerializer(serializers.Serializer):
 
     def validate_apellido(self, value):
         return value.strip().capitalize()
+
+
+class PersonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Person
+        fields = '__all__'
+        #fields = ('id', 'first_name', 'last_name')
