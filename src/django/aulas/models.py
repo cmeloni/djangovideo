@@ -7,6 +7,7 @@ class Person(models.Model):
     last_name = models.CharField(max_length=30)
     age = models.IntegerField(null=True, blank=True)
 
+
 class Musician(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -17,7 +18,6 @@ class Musician(models.Model):
 
     def __unicode__(self):
         return f"{self.first_name} {self.last_name} ({self.instrument})"
-
 
 
 class Album(models.Model):
