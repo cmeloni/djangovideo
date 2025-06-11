@@ -17,7 +17,7 @@ from rest_framework import generics
 
 
 from .models import Musician, Album, Person
-from .serializers import PersonaSerializer, PersonSerializer
+from .serializers import PersonaSerializer, PersonSerializer, AlbumSerializer, MusicianSerializer
 
 
 # Create your views here.
@@ -270,3 +270,19 @@ class PersonList(generics.ListCreateAPIView):
 class PersonDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Person.objects.all()
     serializer_class = PersonSerializer
+
+class MusicianList(generics.ListCreateAPIView):
+    queryset = Musician.objects.all()
+    serializer_class = MusicianSerializer
+
+class MusicianDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Musician.objects.all()
+    serializer_class = MusicianSerializer
+
+class AlbumList(generics.ListCreateAPIView):
+    queryset = Album.objects.all()
+    serializer_class = AlbumSerializer
+
+class AlbumDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Album.objects.all()
+    serializer_class = AlbumSerializer

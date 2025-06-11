@@ -18,7 +18,11 @@ from .views import (
     PersonMixinList,
     PersonMixinDetail,
     PersonList,
-    PersonDetail
+    PersonDetail,
+    MusicianList,
+    MusicianDetail,
+    AlbumList,
+    AlbumDetail,
 )
 
 urlpatterns = [
@@ -41,4 +45,9 @@ urlpatterns = [
     path('api/v3/person/<int:pk>/', PersonMixinDetail.as_view()),
     path('api/v4/person/', PersonList.as_view()),
     path('api/v4/person/<int:pk>/', PersonDetail.as_view()),
+
+    path('api/v1/album/', AlbumList.as_view()),
+    path('api/v1/album/<int:pk>/', AlbumDetail.as_view()),
+    path('api/v1/musician/', MusicianList.as_view()),
+    path('api/v1/musician/<int:pk>/', MusicianDetail.as_view()),
 ]

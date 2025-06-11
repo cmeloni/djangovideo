@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Person
+from .models import Person, Album, Musician
 
 class PersonaSerializer(serializers.Serializer):
     nombre = serializers.CharField(max_length=100)
@@ -30,3 +30,22 @@ class PersonSerializer(serializers.ModelSerializer):
         model = Person
         fields = '__all__'
         #fields = ('id', 'first_name', 'last_name')
+
+class AlbumSerializer(serializers.ModelSerializer):
+    artist_firstname = serializers.ReadOnlyField(source='artist.first_name')
+    artist_lastname = serializers.ReadOnlyField(source='artist.last_name')
+    class Meta:
+        model = Album
+        fields = ('id', 'artist', 'name', 'release_date', 'num_stars', 'artist_firstname', 'artist_lastname')
+
+class SimpleAlbumSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Album
+        fields = ('id', 'name')
+
+
+class MusicianSerializer(serializers.ModelSerializer):
+    albums = SimpleAlbumSerializer(many=True, read_only=True)
+    class Meta:
+        model = Musician
+        fields = ('id', 'first_name', 'last_name', 'instrument', 'albums')
