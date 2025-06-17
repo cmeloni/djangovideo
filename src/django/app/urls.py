@@ -20,5 +20,6 @@ from aulas import urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/auth/', include('authapp.urls')),
     path('aulas/', include(urls)),
 ]

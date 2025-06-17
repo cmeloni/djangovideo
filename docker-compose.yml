@@ -1,7 +1,7 @@
 
 services:
   backend:
-    image: videobackend:0.4
+    image: videobackend:0.5
     build:
       context: ./config/django-image
     volumes:
